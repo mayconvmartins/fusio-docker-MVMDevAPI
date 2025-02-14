@@ -21,6 +21,12 @@ services:
       - ./logs:/var/www/html/fusio/log
       - ./cache:/var/www/html/fusio/cache
       - /mvm/Bancos_de_Dados:/mvm/Bancos_de_Dados
+    labels:
+      - "traefik.http.routers.fusio.rule=Host(`api.mvmdev.com`) || Host(`apps.mvmdev.com`)"
+      - "traefik.http.routers.fusio.entrypoints=websecure"
+      - "traefik.http.routers.fusio.tls.certresolver=myresolver"
+      - "traefik.http.services.fusio.loadbalancer.server.port=80"
+  
 
   # Fusio system database
   mysql-fusio:
