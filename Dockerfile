@@ -20,7 +20,6 @@ RUN apt-get update && apt-get -y install \
     cron \
     sudo \
     supervisor \
-    php-dev \
     default-mysql-client \
     libpq-dev \
     libxml2-dev \
