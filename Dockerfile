@@ -32,9 +32,7 @@ RUN apt-get update && apt-get -y install \
     libssl-dev \
     libcurl4-openssl-dev \
     sqlite3 \
-    libsqlite3-dev \
-    php-pear \
-    php-dev
+    libsqlite3-dev
 
 # install php extensions
 RUN docker-php-ext-install \
