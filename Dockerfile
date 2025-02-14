@@ -109,7 +109,7 @@ COPY ./php/fusio.ini "${PHP_INI_DIR}/conf.d/fusio.ini"
 
 # install additional connectors
 RUN cd /var/www/html/fusio && \
-    /usr/bin/composer require fusio/adapter-elasticsearch ^6.0 && \
+    /usr/bin/composer require fusio/adapter-elasticsearch && \
     /usr/bin/composer require fusio/adapter-memcache ^6.0 && \
     /usr/bin/composer require fusio/adapter-mongodb ^6.0 && \
     /usr/bin/composer require symfony/sendgrid-mailer ^6.0 && \
