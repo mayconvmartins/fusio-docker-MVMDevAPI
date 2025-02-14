@@ -71,7 +71,7 @@ RUN echo "${COMPOSER_SHA256} */usr/bin/composer" | sha256sum -c -
 RUN chmod +x /usr/bin/composer
 
 # install fusio
-RUN mkdir /var/www/html/fusio
+RUN mkdir -p /var/www/html/fusio
 RUN wget -O /var/www/html/fusio/fusio.zip "https://github.com/apioo/fusio/releases/download/v${FUSIO_VERSION}/fusio.zip"
 RUN cd /var/www/html/fusio && unzip fusio.zip
 RUN rm /var/www/html/fusio/fusio.zip
@@ -116,17 +116,17 @@ RUN cd /var/www/html/fusio && \
     /usr/bin/composer require symfony/http-client ^6.0
 
 # install apps
-RUN mkdir /var/www/html/fusio/public/apps/fusio
+RUN mkdir -p /var/www/html/fusio/public/apps/fusio
 RUN wget -O /var/www/html/fusio/public/apps/fusio/fusio.zip "https://github.com/apioo/fusio-apps-backend/releases/download/v${FUSIO_APP_BACKEND}/fusio.zip"
 RUN cd /var/www/html/fusio/public/apps/fusio && unzip fusio.zip
 RUN rm /var/www/html/fusio/public/apps/fusio/fusio.zip
 
-RUN mkdir /var/www/html/fusio/public/apps/developer
+RUN mkdir -p /var/www/html/fusio/public/apps/developer
 RUN wget -O /var/www/html/fusio/public/apps/developer/developer.zip "https://github.com/apioo/fusio-apps-developer/releases/download/v${FUSIO_APP_DEVELOPER}/developer.zip"
 RUN cd /var/www/html/fusio/public/apps/developer && unzip developer.zip
 RUN rm /var/www/html/fusio/public/apps/developer/developer.zip
 
-RUN mkdir /var/www/html/fusio/public/apps/account
+RUN mkdir -p /var/www/html/fusio/public/apps/account
 RUN wget -O /var/www/html/fusio/public/apps/account/account.zip "https://github.com/apioo/fusio-apps-account/releases/download/v${FUSIO_APP_ACCOUNT}/account.zip"
 RUN cd /var/www/html/fusio/public/apps/account && unzip account.zip
 RUN rm /var/www/html/fusio/public/apps/account/account.zip
