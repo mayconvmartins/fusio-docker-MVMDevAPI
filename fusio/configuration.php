@@ -12,12 +12,12 @@ return [
 
     // Optional a tenant id of you Fusio instance. This can be used to run multiple clients on the same Fusio
     // installation. All database entries are separated by the provided tenant id
-    'fusio_tenant_id'          => env('APP_TENANT_ID')->string(),
+    'fusio_tenant_id'          => env('FUSIO_TENANT_ID')->string(),
 
     // The secret key of a project. It is recommended to change this to another random value. This is used i.e. to
     // encrypt the connection credentials in the database. NOTE IF YOU CHANGE THE KEY FUSIO CAN NO LONGER READ ANY DATA
     // WHICH WAS ENCRYPTED BEFORE. BECAUSE OF THAT IT IS RECOMMENDED TO CHANGE THE KEY ONLY BEFORE THE INSTALLATION
-    'fusio_project_key'        => env('APP_PROJECT_KEY')->string(),
+    'fusio_project_key'        => env('FUSIO_PROJECT_KEY')->string(),
 
     // Optional an array of action or connection classes which are not allowed to use
     'fusio_action_exclude'     => null,
@@ -28,7 +28,7 @@ return [
     'fusio_provider'           => __DIR__ . '/provider.php',
 
     // Describes the default email which Fusio uses as from address
-    'fusio_mail_sender'        => env('APP_MAIL_SENDER')->string(),
+    'fusio_mail_sender'        => env('FUSIO_MAIL_SENDER')->string(),
 
     // Indicates whether the database is enabled. If true it is possible to change the database schema through the
     // backend
@@ -39,36 +39,36 @@ return [
     'fusio_marketplace'        => true,
 
     // The public url to the apps folder (i.e. http://acme.com/apps or http://apps.acme.com)
-    'fusio_apps_url'           => env('APP_APPS_URL')->string(),
+    'fusio_apps_url'           => env('FUSIO_APPS_URL')->string(),
 
     // Location where the apps are persisted from the marketplace. By default this is the public dir to access the apps
     // directly, but it is also possible to specify a different folder
     'fusio_apps_dir'           => __DIR__ . '/public/apps',
 
     // The url to the psx public folder (i.e. http://api.acme.com or http://127.0.0.1/psx/public)
-    'psx_url'                  => env('APP_URL')->string(),
+    'psx_url'                  => env('FUSIO_URL')->string(),
 
     // The input path 'index.php/' or '' if every request is served to the index.php file
     'psx_dispatch'             => '',
 
     // Defines the current environment i.e. prod or dev
-    'psx_env'                  => env('APP_ENV')->string(),
+    'psx_env'                  => env('FUSIO_ENV')->string(),
 
     // Whether the app runs in debug mode or not. If not error reporting is set to 0, also several caches are used if
     // the debug mode is false
-    'psx_debug'                => env('APP_DEBUG')->bool(),
+    'psx_debug'                => env('FUSIO_DEBUG')->bool(),
 
     // Database parameters which are used for the doctrine DBAL connection
     // http://docs.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/configuration.html
-    'psx_connection'           => env('APP_CONNECTION')->string(),
+    'psx_connection'           => env('FUSIO_CONNECTION')->string(),
 
     // Mailer connection which is used to send mails
     // https://symfony.com/doc/current/mailer.html#using-built-in-transports
-    'psx_mailer'               => env('APP_MAILER')->string(),
+    'psx_mailer'               => env('FUSIO_MAILER')->string(),
 
     // Messenger transport configuration
     // https://symfony.com/doc/current/messenger.html#transports-async-queued-messages
-    'psx_messenger'            => env('APP_MESSENGER')->string(),
+    'psx_messenger'            => env('FUSIO_MESSENGER')->string(),
 
     'psx_migration_namespace'  => 'App\\Migrations',
 
@@ -81,7 +81,7 @@ return [
 
     // Folder locations
     'psx_path_cache'           => __DIR__ . '/cache',
-    'psx_path_log'             => __DIR__ . '/log',
+    'psx_path_log'             => 'php://error_log',
     'psx_path_public'          => __DIR__ . '/public',
     'psx_path_src'             => __DIR__ . '/src',
 
