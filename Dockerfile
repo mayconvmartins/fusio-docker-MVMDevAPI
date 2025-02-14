@@ -54,11 +54,8 @@ RUN docker-php-ext-install gd
 RUN docker-php-ext-install soap
 RUN docker-php-ext-install sockets
 
-# install sqlite3 extension
 RUN apt-get install -y libsqlite3-dev
-RUN docker-php-source extract
-RUN cd /usr/src/php/ext/sqlite3 && phpize && docker-php-ext-install sqlite3
-RUN docker-php-source delete
+
 
 # install pecl
 RUN pecl install memcache-8.2 \
