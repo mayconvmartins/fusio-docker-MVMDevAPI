@@ -35,6 +35,8 @@ RUN apt-get update && apt-get -y install \
     libsqlite3-dev
 
 # install php extensions
+RUN docker-php-ext-configure pdo_sqlite --with-pdo-sqlite=/usr/local
+RUN docker-php-ext-configure sqlite3 --with-sqlite3=/usr/local
 RUN docker-php-ext-install \
     pgsql \
     mysqli \
