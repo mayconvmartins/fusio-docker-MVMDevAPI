@@ -43,7 +43,7 @@ services:
   mysql-fusio:
     image: mysql:8.0
     restart: always
-      networks:
+    networks:
       - traefik_network
     environment:
       MYSQL_ROOT_PASSWORD: "61ad6c6A5999"
@@ -58,17 +58,15 @@ services:
     image: fusio/worker-java:2.0
     restart: always
     networks:
-   - traefik_network
+      - traefik_network
     volumes:
       - ./worker/java:/worker/actions
 
   worker-javascript:
-    networks:
-      - traefik_network
     image: fusio/worker-javascript:2.0
     restart: always
     networks:
-   - traefik_network
+      - traefik_network
     volumes:
       - ./worker/javascript:/worker/actions
 
@@ -76,14 +74,18 @@ services:
     image: fusio/worker-php:2.1
     restart: always
     networks:
-   - traefik_network
+      - traefik_network
     volumes:
       - ./worker/php:/var/www/html/worker/actions
 
   worker-python:
-    image: fusio/worker-python
+    image: fusio/worker-python:2.0
     restart: always
     networks:
-   - traefik_network
+      - traefik_network
     volumes:
       - ./worker/python:/worker/actions
+
+networks:
+  traefik_network:
+    driver: bridge
