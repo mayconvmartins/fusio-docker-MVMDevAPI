@@ -34,7 +34,8 @@ RUN apt-get update && apt-get -y install \
     sqlite3 \
     libsqlite3-dev \
     autoconf \
-    build-essential
+    build-essential \
+    php-dev
 
 # install php extensions
 RUN docker-php-ext-install \
