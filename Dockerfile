@@ -43,7 +43,6 @@ RUN docker-php-ext-install \
     pdo \
     pdo_mysql \
     pdo_pgsql \
-    pdo_sqlite \
     sqlite3 \
     simplexml \
     dom \
