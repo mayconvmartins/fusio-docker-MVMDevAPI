@@ -41,7 +41,6 @@ RUN docker-php-ext-install pgsql
 RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install pdo_mysql
 RUN docker-php-ext-install pdo_pgsql
-RUN docker-php-ext-install sqlite3
 RUN docker-php-ext-install simplexml
 RUN docker-php-ext-install dom
 RUN docker-php-ext-install bcmath
@@ -54,6 +53,12 @@ RUN docker-php-ext-install xml
 RUN docker-php-ext-install gd
 RUN docker-php-ext-install soap
 RUN docker-php-ext-install sockets
+
+# install sqlite3 extension
+RUN apt-get install -y libsqlite3-dev
+RUN docker-php-source extract
+RUN cd /usr/src/php/ext/sqlite3 && phpize && docker-php-ext-install sqlite3
+RUN docker-php-source delete
 
 # install pecl
 RUN pecl install memcache-8.2 \
