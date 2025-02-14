@@ -2,12 +2,25 @@ version: '3'
 services:
   # Fusio container
   fusio:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: fusio/fusio
     restart: always
-    env_file:
-      - .env
+    environment:
+      FUSIO_TENANT_ID: "1"
+      FUSIO_PROJECT_KEY: "42eec18ffdbffc9fda6110dcc705d6ce"
+      FUSIO_URL: "http://api.mvmdev.com"
+      FUSIO_APPS_URL: "http://apps.mvmdev.com"
+      FUSIO_ENV: "prod"
+      FUSIO_DEBUG: "true"
+      FUSIO_CONNECTION: "pdo-mysql://fusio:61ad6c6A5999@mysql-fusio/fusio"
+      FUSIO_BACKEND_USER: "maycon"
+      FUSIO_BACKEND_EMAIL: "maycon@mvmdev.com"
+      FUSIO_BACKEND_PW: "Sync@M1122"      FUSIO_MAILER: "native://default"
+      FUSIO_MESSENGER: "doctrine://default"
+      FUSIO_MAIL_SENDER: "info@api.fusio.cloud"
+      FUSIO_WORKER_JAVA: "worker-java:9090"
+      FUSIO_WORKER_JAVASCRIPT: "worker-javascript:9091"
+      FUSIO_WORKER_PHP: "worker-php:9092"
+      FUSIO_WORKER_PYTHON: "worker-python:9093"
     links:
       - mysql-fusio
       - worker-java
@@ -16,14 +29,6 @@ services:
       - worker-python
     ports:
       - "8484:80"
-    volumes:
-      - /mvm/Bancos_de_Dados:/mvm/Bancos_de_Dados
-    labels:
-      - "traefik.http.routers.fusio.rule=Host(`api.mvmdev.com`) || Host(`apps.mvmdev.com`)"
-      - "traefik.http.routers.fusio.entrypoints=websecure"
-      - "traefik.http.routers.fusio.tls.certresolver=myresolver"
-      - "traefik.http.services.fusio.loadbalancer.server.port=80"
-  
 
   # Fusio system database
   mysql-fusio:
