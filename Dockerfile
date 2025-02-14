@@ -20,6 +20,7 @@ RUN apt-get update && apt-get -y install \
     cron \
     sudo \
     supervisor \
+    php-dev \
     default-mysql-client \
     libpq-dev \
     libxml2-dev \
@@ -32,7 +33,9 @@ RUN apt-get update && apt-get -y install \
     libssl-dev \
     libcurl4-openssl-dev \
     sqlite3 \
-    libsqlite3-dev
+    libsqlite3-dev \
+    autoconf \
+    build-essential
 
 # install php extensions
 RUN docker-php-ext-install \
