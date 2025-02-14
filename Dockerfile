@@ -40,7 +40,6 @@ RUN apt-get update && apt-get -y install \
 RUN docker-php-ext-install \
     pgsql \
     mysqli \
-    pdo \
     pdo_mysql \
     pdo_pgsql \
     sqlite3 \
