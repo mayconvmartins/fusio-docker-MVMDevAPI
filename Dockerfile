@@ -1,29 +1,7 @@
 FROM php:8.3-apache
 MAINTAINER Christoph Kappestein <christoph.kappestein@apioo.de>
 LABEL version="5.1.6"
-LABEL description="Fusio API management"
-
-# env
-ENV FUSIO_PROJECT_KEY="42eec18ffdbffc9fda6110dcc705d6ce"
-ENV FUSIO_URL="http://api.fusio.cloud"
-ENV FUSIO_APPS_URL="http://api.fusio.cloud/apps"
-ENV FUSIO_ENV="prod"
-ENV FUSIO_DEBUG="false"
-ENV FUSIO_CONNECTION="pdo-mysql://fusio:61ad6c605975@localhost/fusio"
-
-ENV FUSIO_BACKEND_USER="demo"
-ENV FUSIO_BACKEND_EMAIL="demo@fusio-project.org"
-ENV FUSIO_BACKEND_PW="75dafcb12c4f"
-
-ENV FUSIO_MAILER="native://default"
-ENV FUSIO_MESSENGER="doctrine://default"
-ENV FUSIO_MAIL_SENDER=""
-ENV FUSIO_MARKETPLACE="off"
-
-ENV FUSIO_WORKER_JAVA=""
-ENV FUSIO_WORKER_JAVASCRIPT=""
-ENV FUSIO_WORKER_PHP=""
-ENV FUSIO_WORKER_PYTHON=""
+LABEL description="MVMDEV API Platform"
 
 ARG FUSIO_VERSION="5.1.6"
 ARG FUSIO_APP_BACKEND="5.1.4"
@@ -52,7 +30,9 @@ RUN apt-get update && apt-get -y install \
     libmemcached-dev \
     openssl \
     libssl-dev \
-    libcurl4-openssl-dev
+    libcurl4-openssl-dev \
+    sqlite3 \
+    libsqlite3-dev
 
 # install php extensions
 RUN docker-php-ext-install \
@@ -61,6 +41,8 @@ RUN docker-php-ext-install \
     pdo \
     pdo_mysql \
     pdo_pgsql \
+    pdo_sqlite \
+    sqlite3 \
     simplexml \
     dom \
     bcmath \
@@ -96,6 +78,19 @@ RUN cd /var/www/html/fusio && /usr/bin/composer install --no-dev
 RUN cd /var/www/html/fusio && /usr/bin/composer dump-autoload --no-dev --classmap-authoritative
 COPY ./fusio /var/www/html/fusio
 RUN chmod +x /var/www/html/fusio/bin/fusio
+
+# create necessary directories
+RUN mkdir -p /var/www/html/fusio/cache \
+    /var/www/html/fusio/log \
+    /var/www/html/fusio/public/apps \
+    /var/www/html/fusio/public/apps/fusio \
+    /var/www/html/fusio/public/apps/developer \
+    /var/www/html/fusio/public/apps/account \
+    /var/www/html/fusio/public/apps/redoc \
+    /worker/java \
+    /worker/javascript \
+    /worker/php \
+    /worker/python
 
 # apache config
 RUN rm /etc/apache2/sites-available/*.conf
