@@ -37,24 +37,23 @@ RUN apt-get update && apt-get -y install \
     build-essential
 
 # install php extensions
-RUN docker-php-ext-install \
-    pgsql \
-    mysqli \
-    pdo_mysql \
-    pdo_pgsql \
-    sqlite3 \
-    simplexml \
-    dom \
-    bcmath \
-    curl \
-    zip \
-    mbstring \
-    opcache \
-    intl \
-    xml \
-    gd \
-    soap \
-    sockets
+RUN docker-php-ext-install pgsql
+RUN docker-php-ext-install mysqli
+RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install pdo_pgsql
+RUN docker-php-ext-install sqlite3
+RUN docker-php-ext-install simplexml
+RUN docker-php-ext-install dom
+RUN docker-php-ext-install bcmath
+RUN docker-php-ext-install curl
+RUN docker-php-ext-install zip
+RUN docker-php-ext-install mbstring
+RUN docker-php-ext-install opcache
+RUN docker-php-ext-install intl
+RUN docker-php-ext-install xml
+RUN docker-php-ext-install gd
+RUN docker-php-ext-install soap
+RUN docker-php-ext-install sockets
 
 # install pecl
 RUN pecl install memcache-8.2 \
