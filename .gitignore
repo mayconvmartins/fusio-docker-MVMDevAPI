@@ -42,3 +42,11 @@ docker-compose.override.yaml
 *.njsproj
 *.sln
 *.sw?
+
+# Fusio specific
+fusio/cache/
+fusio/log/
+fusio/public/apps/
+db/
+cache/
+logs/

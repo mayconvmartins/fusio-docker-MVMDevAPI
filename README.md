@@ -1,59 +1,109 @@
-# Fusio docker container
+# MVMDEV API Platform
 
-Official docker container of Fusio. More information about Fusio at: 
-https://www.fusio-project.org
+## Visão Geral
 
-## Usage
+Este projeto utiliza Docker para configurar e gerenciar o ambiente de desenvolvimento e produção do Fusio. O Fusio é uma plataforma de gerenciamento de APIs que permite criar, gerenciar e monitorar APIs de forma eficiente.
 
-The most simple usage is to use the provided `docker-compose.yml` file. Use the
-following command to setup a mysql and fusio container.
+## Estrutura do Projeto
 
-```
+- **Dockerfile**: Define a imagem Docker personalizada para o Fusio.
+- **docker-compose.yml**: Define e gerencia os serviços Docker, incluindo o Fusio, banco de dados MySQL e workers.
+- **.env**: Arquivo de variáveis de ambiente para configurar o Fusio e outros serviços.
+- **apache/fusio.conf**: Configuração do Apache para o Fusio.
+- **supervisor/fusio.conf**: Configuração do Supervisor para gerenciar processos do Fusio.
+- **php/fusio.ini**: Configuração do PHP para o Fusio.
+- **oracle/Dockerfile**: Dockerfile para configurar o cliente Oracle.
+- **LICENSE**: Licença Apache 2.0 para o projeto.
+
+## Pré-requisitos
+
+- Docker
+- Docker Compose
+
+## Instalação
+
+1. Clone o repositório:
+
+   ```bash
+   git clone https://github.com/seu-usuario/fusio-docker-MVMDevAPI.git
+   cd fusio-docker-MVMDevAPI
+   ```
+
+2. Crie e configure o arquivo `.env` com as variáveis de ambiente necessárias:
+
+   ```plaintext
+   FUSIO_PROJECT_KEY="42eec18ffdbffc9fda6110dcc705d6ce"
+   FUSIO_URL="http://api.mvmdev.com"
+   FUSIO_APPS_URL="http://app.mvmdev.com"
+   FUSIO_ENV="prod"
+   FUSIO_DEBUG="false"
+   FUSIO_CONNECTION="pdo-mysql://fusio:61ad6c6A5999@mysql-fusio/fusio"
+   FUSIO_BACKEND_USER="test"
+   FUSIO_BACKEND_EMAIL="demo@fusio-project.org"
+   FUSIO_BACKEND_PW="test1234"
+   FUSIO_MAILER="native://default"
+   FUSIO_MESSENGER="doctrine://default"
+   FUSIO_MAIL_SENDER="info@api.fusio.cloud"
+   FUSIO_MARKETPLACE="off"
+   FUSIO_WORKER_JAVA=""
+   FUSIO_WORKER_JAVASCRIPT=""
+   FUSIO_WORKER_PHP=""
+   FUSIO_WORKER_PYTHON=""
+   ```
+
+## Inicialização
+
+Para iniciar os serviços, execute o comando:
+
+```bash
 docker-compose up -d
 ```
 
-NOTE: You MUST change the default passwords which are defined in the 
-`docker-compose.yml` file before running this container on the internet.
-Also by default the hostname is `api.fusio.cloud` but you can adjust this
-via the env settings.
+Isso irá construir as imagens Docker e iniciar os contêineres definidos no `docker-compose.yml`.
 
-## Worker
+## Parada
 
-Besides the database we set up also different worker instances to enable
-the usage of different programming languages. If you dont need support
-for these programming languages you can disable them in the configuration.
-Fusio will also work if these instances are not available.
+Para parar os serviços, execute o comando:
 
-### Run
-
-If you dont want to use the `docker-compose` command you can create and link 
-the needed containers also manually:
-
-#### Mysql
-
-```
-$ docker run -d --name mysql_fusio \
-  -e "MYSQL_ROOT_PASSWORD=61ad6c605975" \
-  -e "MYSQL_USER=fusio" \
-  -e "MYSQL_PASSWORD=61ad6c605975" \
-  -e "MYSQL_DATABASE=fusio" \
-  mysql:5.7
+```bash
+docker-compose down
 ```
 
-#### Fusio
+Isso irá parar e remover os contêineres, redes e volumes definidos no `docker-compose.yml`.
 
+## Reinicialização
+
+Para reiniciar os serviços, execute o comando:
+
+```bash
+docker-compose restart
 ```
-$ docker run -d --name fusio \
-  -p 80:80 \
-  --link mysql_fusio:db \
-  -e "FUSIO_PROJECT_KEY=42eec18ffdbffc9fda6110dcc705d6ce" \
-  -e "FUSIO_URL=http://api.fusio.cloud" \
-  -e "FUSIO_APPS_URL=http://api.fusio.cloud/apps" \
-  -e "FUSIO_ENV=prod" \
-  -e "FUSIO_DEBUG=false" \
-  -e "FUSIO_CONNECTION=pdo-mysql://fusio:61ad6c605975@mysql_fusio/fusio" \
-  -e "FUSIO_BACKEND_USER=demo" \
-  -e "FUSIO_BACKEND_EMAIL=demo@fusio-project.org" \
-  -e "FUSIO_BACKEND_PW=61ad6c605975" \
-  fusio/fusio
+
+## Ver Logs
+
+Para ver os logs dos contêineres, execute o comando:
+
+```bash
+docker-compose logs -f
 ```
+
+## Acesso
+
+- API: [http://api.mvmdev.com](http://api.mvmdev.com)
+- Apps: [http://app.mvmdev.com](http://app.mvmdev.com)
+
+## Estrutura de Diretórios
+
+- **fusio**: Diretório principal do Fusio.
+- **logs**: Diretório para logs.
+- **cache**: Diretório para cache.
+- **db**: Diretório para o banco de dados.
+- **worker/java**: Diretório para ações do worker Java.
+- **worker/javascript**: Diretório para ações do worker JavaScript.
+- **worker/php**: Diretório para ações do worker PHP.
+- **worker/python**: Diretório para ações do worker Python.
+- **/mvm/Bancos_de_Dados**: Diretório para bancos de dados.
+
+## Licença
+
+Este projeto está licenciado sob a Licença Apache 2.0. Veja o arquivo [LICENSE](./LICENSE) para mais detalhes.
